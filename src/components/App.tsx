@@ -2,11 +2,14 @@ import { Provider } from 'react-redux';
 import { store } from '../state/store';
 import RepositoriesList from './RepositoriesList';
 
-const App = () => {
+import { Typography, Space } from 'antd';
+const { Title } = Typography;
+
+const App: React.FC = () => {
   return (
     <Provider store={store}>
       <div>
-        <h1>Search For a Package</h1>
+        <Title>Search For a Package</Title>
         <RepositoriesList />
       </div>
     </Provider>

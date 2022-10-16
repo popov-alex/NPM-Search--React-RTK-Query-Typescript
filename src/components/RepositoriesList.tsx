@@ -3,6 +3,8 @@ import { search } from '../state/slice/repositoriesSlice';
 import { useTypedSelector } from '../hooks/customHooks';
 import { useTypedDispatch } from '../hooks/customHooks';
 
+import { Input, Col, Row, Button, Space } from 'antd';
+
 const RepositoriesList: React.FC = () => {
   const [term, setTerm] = useState('');
   const dispatch = useTypedDispatch();
@@ -19,8 +21,12 @@ const RepositoriesList: React.FC = () => {
   return (
     <div>
       <form onSubmit={onSubmit}>
-        <input value={term} onChange={(e) => setTerm(e.target.value)} />
-        <button>Search</button>
+        <Row>
+          <Col span={12}>
+            <Input value={term} onChange={(e) => setTerm(e.target.value)} />
+          </Col>
+        </Row>
+        <Button type='primary'>Search</Button>
       </form>
       <div>
         {error && <h3>{error}</h3>}

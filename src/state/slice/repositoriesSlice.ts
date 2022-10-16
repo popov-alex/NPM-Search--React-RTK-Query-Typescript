@@ -5,9 +5,6 @@ import { Dispatch } from 'redux';
 
 // получается, я вообще потерял связь с типами Actions импорты которых ниже. или это норм? тк в createSlice мы в name пишем как раз я так понимаю, action type для будущих actions, а само название actions берется из названия reducers. То есть можно вообще удалить папки actionTypes and actions???
 
-import { ActionType } from '../actionTypes';
-import { Action } from '../actions';
-
 interface State {
   loading: Boolean;
   error: string | null;
