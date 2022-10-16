@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { search } from '../state';
-import { useTypedSelector } from '../hooks/useTypedSelector';
+import { search } from '../state/slice/repositoriesSlice';
+import { useTypedSelector } from '../hooks/customHooks';
+import { useTypedDispatch } from '../hooks/customHooks';
 
 const RepositoriesList: React.FC = () => {
   const [term, setTerm] = useState('');
-  const dispatch = useDispatch();
+  const dispatch = useTypedDispatch();
   const { loading, error, data } = useTypedSelector(
     (state) => state.repositories
   );
