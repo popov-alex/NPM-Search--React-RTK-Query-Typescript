@@ -3,8 +3,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Dispatch } from 'redux';
 
-// получается, я вообще потерял связь с типами Actions импорты которых ниже. или это норм? тк в createSlice мы в name пишем как раз я так понимаю, action type для будущих actions, а само название actions берется из названия reducers. То есть можно вообще удалить папки actionTypes and actions???
-
 interface State {
   loading: Boolean;
   error: string | null;
@@ -48,11 +46,7 @@ export default loadingSlice.reducer;
 // action creators
 
 export const search = (term: string) => {
-  // тут вообще должен быть dispatch или тот кастом хук что я создал в hooks folder? я так понимаю кастом хук лучше знает про стейт?
-
   return async (dispatch: Dispatch<any>) => {
-    // тут в первоначальной версии проекта было Dispatch<Action> - я поменял на <any> тк иначе следующая строка, где код dispatch(LOADING()) Тайпскрипт ругался.
-
     dispatch(LOADING());
 
     try {
