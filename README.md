@@ -2,7 +2,7 @@
 
 The React part of this application is rather straightforward. We render a search input which gets the names of npm packages from an api.
 
-The real goal (and challenge) here was to connect Typescript with React-Redux.
+The real goal (and challenge) here was to connect Typescript with React-Redux Toolkit.
 
 # Getting Started with Create React App
 
