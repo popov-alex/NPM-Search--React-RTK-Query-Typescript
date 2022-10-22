@@ -1,10 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
 import axios from 'axios';
 import { Dispatch } from 'redux';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface State {
-  loading: Boolean;
+  loading: boolean;
   error: string | null;
   data: string[];
 }
@@ -21,17 +20,17 @@ const loadingSlice = createSlice({
   name: 'ActionType',
   initialState,
   reducers: {
-    LOADING(state) {
+    loading(state) {
       state.loading = true;
       state.error = null;
       state.data = [];
     },
-    LOADING_SUCCESS(state, action: PayloadAction<string[]>) {
+    loading_success(state, action: PayloadAction<string[]>) {
       state.loading = false;
       state.error = null;
       state.data = action.payload;
     },
-    LOADING_ERROR(state, action: PayloadAction<string | null>) {
+    loading_error(state, action: PayloadAction<string | null>) {
       state.loading = false;
       state.error = action.payload;
       state.data = [];
@@ -39,7 +38,7 @@ const loadingSlice = createSlice({
   },
 });
 
-export const { LOADING, LOADING_ERROR, LOADING_SUCCESS } = loadingSlice.actions;
+const { loading, loading_success, loading_error } = loadingSlice.actions;
 
 export default loadingSlice.reducer;
 
@@ -47,7 +46,7 @@ export default loadingSlice.reducer;
 
 export const search = (term: string) => {
   return async (dispatch: Dispatch<any>) => {
-    dispatch(LOADING());
+    dispatch(loading());
 
     try {
       const { data } = await axios.get(
@@ -63,9 +62,9 @@ export const search = (term: string) => {
 
       console.log(names);
 
-      dispatch(LOADING_SUCCESS(names));
+      dispatch(loading_success(names));
     } catch (err: any) {
-      LOADING_ERROR(err.message);
+      loading_error(err.message);
     }
   };
 };
