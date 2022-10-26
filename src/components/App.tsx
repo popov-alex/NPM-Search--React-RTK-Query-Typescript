@@ -1,18 +1,18 @@
-import { Provider } from 'react-redux';
-import { store } from '../state/store';
 import RepositoriesList from './RepositoriesList';
 
-import { Typography, Space } from 'antd';
+import { Typography, Col, Row } from 'antd';
 const { Title } = Typography;
 
 const App: React.FC = () => {
   return (
-    <Provider store={store}>
-      <div>
-        <Title>Search For a Package</Title>
-        <RepositoriesList />
-      </div>
-    </Provider>
+    <div>
+      <Row style={{ padding: 100 }}>
+        <Col span={12} offset={6}>
+          <Title>Search For a Package</Title>
+          <RepositoriesList />
+        </Col>
+      </Row>
+    </div>
   );
 };
 

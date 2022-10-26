@@ -1,38 +1,46 @@
 import { useState } from 'react';
-import { search } from '../state/slice/repositoriesSlice';
-import { useTypedSelector } from '../hooks/customHooks';
-import { useTypedDispatch } from '../hooks/customHooks';
+import { Input, Button, Space } from 'antd';
 
-import { Input, Col, Row, Button, Space } from 'antd';
+import { useGetRepositoryByNameQuery } from '../services/npmRepositories';
 
 const RepositoriesList: React.FC = () => {
   const [term, setTerm] = useState('');
-  const dispatch = useTypedDispatch();
-  const { loading, error, data } = useTypedSelector(
-    (state) => state.repositories
-  );
+  const [search, setSearch] = useState('');
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const { data, error, isLoading } = useGetRepositoryByNameQuery(search);
+  console.log(data);
 
-    dispatch(search(term) as any);
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    setSearch(term);
   };
 
   return (
     <div>
-      <form onSubmit={onSubmit}>
-        <Row>
-          <Col span={12}>
-            <Input value={term} onChange={(e) => setTerm(e.target.value)} />
-          </Col>
-        </Row>
-        <Button type='primary'>Search</Button>
-      </form>
-      <div>
-        {error && <h3>{error}</h3>}
-        {loading && <h3>Loading...</h3>}
-        {!error && !loading && data.map((name) => <div key={name}>{name}</div>)}
-      </div>
+      <Space size={16} direction='vertical'>
+        <form onSubmit={onSubmit}>
+          <Space size={16} direction='vertical'>
+            <Input
+              style={{ width: 300 }}
+              value={term}
+              onChange={(e) => setTerm(e.target.value)}
+            />
+
+            <Button type='primary' htmlType='submit'>
+              Search
+            </Button>
+          </Space>
+        </form>
+
+        <div>
+          {error && <h3>Oh, no! Error!</h3>}
+          {isLoading && <h3>Loading...</h3>}
+          {!error &&
+            !isLoading &&
+            data?.map((name: string) => <div key={name}>{name}</div>)}
+        </div>
+      </Space>
     </div>
   );
 };
