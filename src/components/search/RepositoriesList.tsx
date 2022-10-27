@@ -1,13 +1,15 @@
 import { useState } from 'react';
-import { Input, Button, Space } from 'antd';
+import { Input, Button, Space, Table } from 'antd';
 
-import { useGetRepositoryByNameQuery } from '../services/npmRepositories';
+import { useGetRepositoryByNameQuery } from '../../services/npmRepositories';
+import { _Table } from './Table';
 
 const RepositoriesList: React.FC = () => {
-  const [term, setTerm] = useState('');
-  const [search, setSearch] = useState('');
+  const [term, setTerm] = useState('react');
+  const [search, setSearch] = useState('react');
 
-  const { data, error, isLoading } = useGetRepositoryByNameQuery(search);
+  const { data, error, isFetching, isSuccess } =
+    useGetRepositoryByNameQuery(search);
   console.log(data);
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -35,10 +37,13 @@ const RepositoriesList: React.FC = () => {
 
         <div>
           {error && <h3>Oh, no! Error!</h3>}
-          {isLoading && <h3>Loading...</h3>}
+          {isFetching && <h3>Loading...</h3>}
           {!error &&
-            !isLoading &&
-            data?.map((name: string) => <div key={name}>{name}</div>)}
+            !isFetching &&
+            isSuccess &&
+            // ТУТ РУГАЕТСЯ TS
+
+            Object.keys(data).length > 0 && <_Table data={data} />}
         </div>
       </Space>
     </div>

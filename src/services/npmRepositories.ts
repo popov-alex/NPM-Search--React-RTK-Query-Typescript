@@ -8,8 +8,10 @@ interface Response {
 
 interface Result {
   package: {
-    [key: string]: any;
+    date: string;
+    description: string;
     name: string;
+    keywords: string[];
   };
   score: {};
   searchScore: number;
@@ -30,9 +32,13 @@ export const repositoriesApi = createApi({
         },
       }),
       transformResponse: (response: Response) =>
-        response.objects.map((result: Result) => result.package.name),
+        response.objects.map((result: Result) => ({
+          ...result.package,
+          key: result.package.name,
+        })),
     }),
   }),
 });
 
-export const { useGetRepositoryByNameQuery } = repositoriesApi;
+export const { useGetRepositoryByNameQuery, useLazyGetRepositoryByNameQuery } =
+  repositoriesApi;
